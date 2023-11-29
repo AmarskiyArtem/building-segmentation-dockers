@@ -10,7 +10,10 @@ def load_model(model, resume_dataset=None, best_miou=False, is_cuda=False, gpu_i
         checkpoint_path = os.path.join("weights", resume_dataset, checkpoint_name)
         print("Resuming from {}".format(checkpoint_path))
 
-        model_checkpoint = torch.load(checkpoint_path)  
+        if is_cuda:
+            model_checkpoint = torch.load(checkpoint_path)
+        else:
+            model_checkpoint = torch.load(checkpoint_path, map_location=torch.device('cpu'))
 
     # Load model onto GPUs
     if is_cuda:
