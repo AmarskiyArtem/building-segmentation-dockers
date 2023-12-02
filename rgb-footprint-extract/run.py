@@ -1,15 +1,25 @@
-import sys
+import argparse
 import adapter
-import os
 
-def main():
-    args = sys.argv
-    input_dir = args[1]
-    npy_dir = args[1][:-1] + '_npy/'
-    output_dir = args[2]
-    adapter.convert_images_in_dir(input_dir, npy_dir)
-    os.system(f'bash ./rgb-footprint-extract/run.sh {npy_dir} {output_dir}')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
 
+    parser.add_argument(
+        "--input_path",
+        type=str,
+        help="Path to the images",
+        default="/rgb-footprint-extract/input/",
+    )
+    
+    parser.add_argument(
+        "--output_path", 
+        type=str,
+        help="Path to the segmentation masks",
+        default="/rgb-footprint-extract/output/",
+    )  
 
-if __name__ == '__main__':
-    main()
+    args = parser.parse_args()
+    adapter.Adapter(
+        input_path=args.input_path,
+        output_path=args.output_path
+    ).run()
