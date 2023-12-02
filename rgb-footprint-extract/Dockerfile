@@ -14,6 +14,9 @@ COPY $ALGORITHM_FOLDER/requirements.txt requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install gdown \
+    && gdown "http://dl.yf.io/drn/drn_c_42-9d336e8c.pth" -O /root/.cache/torch/checkpoints/
+
 COPY $ALGORITHM_FOLDER .
 
 COPY ./common ./common

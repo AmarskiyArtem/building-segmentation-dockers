@@ -22,3 +22,5 @@ class Adapter:
 
     def run(self):
         self.convert_images_in_dir()
+        os.chdir('/rgb-footprint-extract/rgb-footprint-extract/')
+        os.system(f'bash run.sh {self.input_path[:-1]}_npy/ {self.output_path}/')

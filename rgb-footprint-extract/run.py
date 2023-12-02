@@ -8,14 +8,14 @@ if __name__ == "__main__":
         "--input_path",
         type=str,
         help="Path to the images",
-        default="/rgb-footprint-extract/input/",
+        default="/rgb-footprint-extract/rgb-footprint-extract/input/",
     )
     
     parser.add_argument(
         "--output_path", 
         type=str,
         help="Path to the segmentation masks",
-        default="/rgb-footprint-extract/output/",
+        default="/rgb-footprint-extract/rgb-footprint-extract/output/",
     )  
 
     args = parser.parse_args()
