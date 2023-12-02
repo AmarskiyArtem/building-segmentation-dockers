@@ -8,17 +8,17 @@ class Adapter:
         self.input_path = input_path
         self.output_path = output_path
         
-    def save_image_as_npy(self, filename):
-        path_to_file = self.input_path + filename
-        image = Image.open(path_to_file).convert('RGB')
-        output_path = f'{self.output_path}{filename}.npy'
-        if not os.path.isdir(self.output_path):
-            os.makedirs(self.output_path)
-        np.save(output_path, image)
+    def save_image_as_npy(self, file, npy_path):
+        filename, file_extension = os.path.splitext(os.path.basename(file))
+        image = Image.open(self.input_path + file).convert('RGB')
+        output = f'{npy_path}{filename}.npy'
+        if not os.path.isdir(npy_path):
+            os.makedirs(npy_path)
+        np.save(output, image)
     
     def convert_images_in_dir(self):
         for file in os.listdir(self.input_path):
-            self.save_image_as_npy(file)
+            self.save_image_as_npy(file, self.input_path[:-1] + '_npy/')
 
     def run(self):
         self.convert_images_in_dir()
