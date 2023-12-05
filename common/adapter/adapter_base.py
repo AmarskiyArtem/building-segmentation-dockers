@@ -1,9 +1,9 @@
-import numpy as np
+from pathlib import Path
 from abc import ABC, abstractmethod
 
 class AdapterBase(ABC):
 
-    def __init__(self, input_path, output_path):
+    def __init__(self, input_path : Path, output_path : Path):
         self.input_path = input_path
         self.output_path = output_path
 
