@@ -6,9 +6,7 @@ WORKDIR $ALGORITHM_FOLDER
 
 RUN apt-get update \ 
     && apt-get install -y gcc \
-    && pip install Cython \
-    && pip install numpy==1.18.1 \
-    && pip install pycocotools==2.0.0
+    && rm -rf /var/lib/apt/lists/*
 
 COPY $ALGORITHM_FOLDER/requirements.txt requirements.txt
 
