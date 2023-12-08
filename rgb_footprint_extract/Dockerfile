@@ -1,6 +1,6 @@
 FROM brunneis/python:3.7.7-ubuntu-20.04
 
-ARG ALGORITHM_FOLDER=/rgb-footprint-extract
+ARG ALGORITHM_FOLDER=/rgb_footprint_extract
 
 WORKDIR $ALGORITHM_FOLDER
 

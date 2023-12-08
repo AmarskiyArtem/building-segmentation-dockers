@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import numpy as np
-import os
+from rgb_footprint_extract import run_deeplab
 
 from PIL import Image
 from pathlib import Path
 
 from common.adapter.adapter_base import AdapterBase
+
 
 class Adapter(AdapterBase):
 
@@ -43,8 +44,7 @@ class Adapter(AdapterBase):
                                        self.input_path.parent.joinpath(self.input_path.name + '_npy'))
 
     def predict_masks(self):
-        os.chdir('/rgb-footprint-extract/rgb-footprint-extract/')
-        os.system(f'bash run.sh {str(self.input_path)[:-1]}_npy/ {self.output_path}')
+        run_deeplab.main(self.input_path.parent.joinpath(self.input_path.name + '_npy'), self.output_path)
 
     def convert_to_output_format(self):
         pass

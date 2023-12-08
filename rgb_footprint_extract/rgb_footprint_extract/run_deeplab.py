@@ -8,17 +8,19 @@ from PIL import Image
 from models.deeplab.train import *
 from models.deeplab.evaluate import *
 
-def main():
+from pathlib import Path
+
+def main(input_path, output_path):
     parser = argparse.ArgumentParser(description="DeeplabV3+ And Evaluation")
 
     # model parameters
 
-    parser.add_argument('--backbone', type=str, default='resnet',
+    parser.add_argument('--backbone', type=str, default='drb_c42',
                         choices=['resnet', 'xception', 'drn', 'mobilenet', 'drn_c42'],
                         help='backbone name (default: resnet)')
     parser.add_argument('--out-stride', type=int, default=16,
                         help='network output stride (default: 8)')
-    parser.add_argument('--dataset', type=str, default='urban3d',
+    parser.add_argument('--dataset', type=str, default='crowdAI',
                         choices=['urban3d', 'spaceNet', 'crowdAI', 'combined'],
                         help='dataset name (default: urban3d)')
     parser.add_argument('--data-root', type=str, default='/data/',
@@ -83,9 +85,9 @@ def main():
     parser.add_argument('--best-miou', action='store_true', default=False)
 
     # inference options (includes some evaluation options)
-    parser.add_argument('--inference', action='store_true', default=False)
-    parser.add_argument('--input-filename', type=str, default=None, help='path to an input file to run inference on')
-    parser.add_argument('--output-filename', type=str, default=None, help='path to where predicted segmentation mask will be written')
+    parser.add_argument('--inference', action='store_true', default=True)
+    parser.add_argument('--input-filename', type=str, default=input_path, help='path to an input file to run inference on')
+    parser.add_argument('--output-filename', type=str, default=output_path, help='path to where predicted segmentation mask will be written')
     parser.add_argument('--window-size', type=int, default=None, help="the size of grid blocks to sample from the input, use if encountering OOM issues")
     parser.add_argument('--stride', type=int, default=None, help="the stride at which to sample grid blocks, recommended value is equal to `window_size`")
 

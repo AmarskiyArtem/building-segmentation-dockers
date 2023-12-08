@@ -11,25 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os
+os.chdir('/rgb_footprint_extract/rgb_footprint_extract')
 
 import argparse
 import adapter
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-
     parser.add_argument(
-        "--input_path",
+        "--input-path",
         type=str,
         help="Path to the images",
-        default="/rgb-footprint-extract/rgb-footprint-extract/input/",
+        default="/rgb_footprint_extract/rgb_footprint_extract/input",
     )
     
     parser.add_argument(
-        "--output_path", 
+        "--output-path", 
         type=str,
         help="Path to the segmentation masks",
-        default="/rgb-footprint-extract/rgb-footprint-extract/output/",
+        default="/rgb_footprint_extract/rgb_footprint_extract/output",
     )  
 
     args = parser.parse_args()
