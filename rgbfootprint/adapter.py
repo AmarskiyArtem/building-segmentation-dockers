@@ -11,11 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import numpy as np
-from rgb_footprint_extract import run_deeplab
+
 from PIL import Image
 from pathlib import Path
 
+from rgb_footprint_extract import run_deeplab
 from common.adapter.adapter_base import AdapterBase
 
 

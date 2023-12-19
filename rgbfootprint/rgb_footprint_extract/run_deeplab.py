@@ -2,12 +2,14 @@
 # as well as a template for metrics and the training pipeline. 
 # His code repository can be found here:
 # https://github.com/jfzhang95/pytorch-deeplab-xception
+
 import sys
 
 sys.path.append('/rgbfootprint/rgb_footprint_extract')
 
 import os
 import argparse
+
 from PIL import Image
 
 from models.deeplab.train import *
