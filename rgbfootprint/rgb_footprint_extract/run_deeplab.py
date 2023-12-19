@@ -15,15 +15,15 @@ from PIL import Image
 from models.deeplab.train import *
 from models.deeplab.evaluate import *
 
-def main(input_path, output_path):
+def main(input_path, output_path, args):
     parser = argparse.ArgumentParser(description="DeeplabV3+ And Evaluation")
 
     # model parameters
 
-    parser.add_argument('--backbone', type=str, default='drn_c42',
+    parser.add_argument('--backbone', type=str, default=args.backbone,
                         choices=['resnet', 'xception', 'drn', 'mobilenet', 'drn_c42'],
                         help='backbone name (default: resnet)')
-    parser.add_argument('--out-stride', type=int, default=8,
+    parser.add_argument('--out-stride', type=int, default=args.out_stride,
                         help='network output stride (default: 8)')
     parser.add_argument('--dataset', type=str, default='crowdAI',
                         choices=['urban3d', 'spaceNet', 'crowdAI', 'combined'],
@@ -69,9 +69,8 @@ def main(input_path, output_path):
                         help='whether use nesterov (default: False)')
 
     # cuda, seed and logging
-    parser.add_argument('--no-cuda', action='store_true', default=
-                        False, help='disables CUDA training')
-    parser.add_argument('--gpu-ids', type=str, default='0',
+    parser.add_argument('--no-cuda', action='store_true', default=args.no_cuda, help='disables CUDA training')
+    parser.add_argument('--gpu-ids', type=str, default=args.gpu_ids,
                         help='use which gpu to train, must be a \
                         comma-separated list of integers only (default=0)')
     parser.add_argument('--seed', type=int, default=1, metavar='S',
@@ -85,7 +84,7 @@ def main(input_path, output_path):
                         help='skip validation during training')
     parser.add_argument('--use-wandb', action='store_true', default=False)
 
-    parser.add_argument('--resume', type=str, default='crowdAI', help='experiment to load (default: crowdAI)')
+    parser.add_argument('--resume', type=str, default=args.resume, help='experiment to load (default: crowdAI)')
     parser.add_argument("--evaluate", action='store_true', default=False)
     parser.add_argument('--best-miou', action='store_true', default=False)
 

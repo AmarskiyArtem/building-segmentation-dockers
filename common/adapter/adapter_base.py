@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
-
 from abc import ABC, abstractmethod
+from argparse import ArgumentParser
 from pathlib import Path
 
 
 class AdapterBase(ABC):
-    def __init__(self, input_path: Path, output_path: Path):
+    def __init__(self, input_path: Path, output_path: Path, args: ArgumentParser):
         self.input_path = input_path
         self.output_path = output_path
 
