@@ -20,31 +20,30 @@ from common.adapter.adapter_base import AdapterBase
 
 
 class Adapter(AdapterBase):
-
     def __init__(self, input_path, output_path):
         self.input_path = Path(input_path)
         self.output_path = Path(output_path)
-        self.npy_path = self.input_path.parent.joinpath(self.input_path.name + '_npy')
-        
+        self.npy_path = self.input_path.parent.joinpath(self.input_path.name + "_npy")
+
     def preprocessing(self):
         pass
-    
-    def save_image_as_npy(self, file_path : Path):
+
+    def save_image_as_npy(self, file_path: Path):
         filename = file_path.stem
-        image = Image.open(file_path).convert('RGB')
-        output = self.npy_path.joinpath(f'{filename}.npy')
+        image = Image.open(file_path).convert("RGB")
+        output = self.npy_path.joinpath(f"{filename}.npy")
         if not self.npy_path.is_dir():
             self.npy_path.mkdir(parents=True, exist_ok=True)
         np.save(output, image)
-    
+
     def convert_to_input_format(self):
         for file in self.input_path.iterdir():
-            if file.suffix in ['.png', '.jpg']:
+            if file.suffix in [".png", ".jpg"]:
                 self.save_image_as_npy(file)
 
     def predict_masks(self):
         for file in self.npy_path.iterdir():
-            run_deeplab.main(file, self.output_path.joinpath(file.stem + '.png'))
+            run_deeplab.main(file, self.output_path.joinpath(file.stem + ".png"))
 
     def convert_to_output_format(self):
         pass

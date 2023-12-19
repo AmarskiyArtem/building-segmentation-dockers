@@ -23,16 +23,13 @@ if __name__ == "__main__":
         help="Path to the images",
         default="/rgbfootprint/rgb_footprint_extract/input",
     )
-    
+
     parser.add_argument(
-        "--output-path", 
+        "--output-path",
         type=str,
         help="Path to the segmentation masks",
         default="/rgbfootprint/rgb_footprint_extract/output",
-    )  
+    )
 
     args = parser.parse_args()
-    adapter.Adapter(
-        input_path=args.input_path,
-        output_path=args.output_path
-    ).run()
+    adapter.Adapter(input_path=args.input_path, output_path=args.output_path).run()
