@@ -2,30 +2,33 @@
 # as well as a template for metrics and the training pipeline. 
 # His code repository can be found here:
 # https://github.com/jfzhang95/pytorch-deeplab-xception
+import sys
+
+sys.path.append('/rgbfootprint/rgb_footprint_extract')
+
+import os
 import argparse
 from PIL import Image
 
 from models.deeplab.train import *
 from models.deeplab.evaluate import *
 
-from pathlib import Path
-
 def main(input_path, output_path):
     parser = argparse.ArgumentParser(description="DeeplabV3+ And Evaluation")
 
     # model parameters
 
-    parser.add_argument('--backbone', type=str, default='drb_c42',
+    parser.add_argument('--backbone', type=str, default='drn_c42',
                         choices=['resnet', 'xception', 'drn', 'mobilenet', 'drn_c42'],
                         help='backbone name (default: resnet)')
-    parser.add_argument('--out-stride', type=int, default=16,
+    parser.add_argument('--out-stride', type=int, default=8,
                         help='network output stride (default: 8)')
     parser.add_argument('--dataset', type=str, default='crowdAI',
                         choices=['urban3d', 'spaceNet', 'crowdAI', 'combined'],
-                        help='dataset name (default: urban3d)')
+                        help='dataset name (default: crowdAI)')
     parser.add_argument('--data-root', type=str, default='/data/',
                         help='datasets root path')
-    parser.add_argument('--workers', type=int, default=4,
+    parser.add_argument('--workers', type=int, default=2,
                         metavar='N', help='dataloader threads')
     parser.add_argument('--sync-bn', type=bool, default=None,
                         help='whether to use sync bn (default: auto)')
@@ -43,7 +46,7 @@ def main(input_path, output_path):
                     help='dropout values')
 
     # training hyper params
-    parser.add_argument('--epochs', type=int, default=None, metavar='N',
+    parser.add_argument('--epochs', type=int, default=1, metavar='N',
                         help='number of epochs to train (default: auto)')
     parser.add_argument('--start_epoch', type=int, default=0,
                         metavar='N', help='start epochs (default:0)')
@@ -80,14 +83,14 @@ def main(input_path, output_path):
                         help='skip validation during training')
     parser.add_argument('--use-wandb', action='store_true', default=False)
 
-    parser.add_argument('--resume', type=str, default=None, help='experiment to load')
+    parser.add_argument('--resume', type=str, default='crowdAI', help='experiment to load (default: crowdAI)')
     parser.add_argument("--evaluate", action='store_true', default=False)
     parser.add_argument('--best-miou', action='store_true', default=False)
 
     # inference options (includes some evaluation options)
     parser.add_argument('--inference', action='store_true', default=True)
-    parser.add_argument('--input-filename', type=str, default=input_path, help='path to an input file to run inference on')
-    parser.add_argument('--output-filename', type=str, default=output_path, help='path to where predicted segmentation mask will be written')
+    parser.add_argument('--input-filename', type=str, default=str(input_path), help='path to an input file to run inference on')
+    parser.add_argument('--output-filename', type=str, default=str(output_path), help='path to where predicted segmentation mask will be written')
     parser.add_argument('--window-size', type=int, default=None, help="the size of grid blocks to sample from the input, use if encountering OOM issues")
     parser.add_argument('--stride', type=int, default=None, help="the stride at which to sample grid blocks, recommended value is equal to `window_size`")
 
@@ -136,11 +139,14 @@ def run_deeplab(args):
         handle_training(args)
 
 def handle_inference(args):
+    os.chdir('/rgbfootprint/rgb_footprint_extract/')
     # Validate arguments
     input_formats, output_formats = {".npy": "numpy"}, [".npy", ".png", ".tiff"]
     
     get_ext = lambda filename: os.path.splitext(filename)[-1] if filename else None
+    
     input_ext, output_ext = get_ext(args.input_filename), get_ext(args.output_filename)
+
     assert args.input_filename and input_ext in input_formats, f"Accepted input file formats: {input_formats.keys()}"
     assert args.output_filename and output_ext in output_formats, f"Accepted output formats: {output_formats}"
 

@@ -1,6 +1,6 @@
 FROM brunneis/python:3.7.7-ubuntu-20.04
 
-ARG ALGORITHM_FOLDER=/rgb_footprint_extract
+ARG ALGORITHM_FOLDER=/rgbfootprint
 
 WORKDIR $ALGORITHM_FOLDER
 
@@ -9,7 +9,7 @@ RUN pip install gdown \
 
 RUN apt-get update \ 
     && apt-get install -y gcc \
-    && pip install Cython \
+    && pip install Cython==3.0.2 \
     && pip install numpy==1.18.1 \
     && rm -rf /var/lib/apt/lists/*
 
