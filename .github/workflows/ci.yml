@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+  push:
+    paths:
+      - 'common/**'
+      - '**/run.py'
+      - '**/adapter.py'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Check code style with Black
+        if: ${{ github.event_name == 'push' }}
+        uses: psf/black@stable
