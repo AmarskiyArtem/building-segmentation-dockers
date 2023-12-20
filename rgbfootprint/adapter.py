@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 import numpy as np
 
 from PIL import Image
@@ -46,7 +47,9 @@ class Adapter(AdapterBase):
 
     def predict_masks(self):
         for file in self.npy_path.iterdir():
-            run_deeplab.main(file, self.output_path.joinpath(file.stem + ".png"), self.args)
+            run_deeplab.main(
+                file, self.output_path.joinpath(file.stem + ".png"), self.args
+            )
 
     def convert_to_output_format(self):
         pass
