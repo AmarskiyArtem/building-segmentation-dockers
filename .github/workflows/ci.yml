@@ -13,7 +13,6 @@ jobs:
         python-version: "3.10"
 
     - name: Check code style with Black
-      uses: psf/black@stable
-      with:
-        options: "--check --verbose"
-        src: "./common"
+      run: |
+        find ./ -maxdepth 2 -mindepth 2 -type f -name '*.py' -exec black --check --verbose {} +
+
