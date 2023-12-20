@@ -1,5 +1,8 @@
 # Building segmentation dockers
 
+[![lint](https://github.com/prime-slam/unsup-lidar-labelling/actions/workflows/ci.yml/badge.svg)](https://github.com/prime-slam/unsup-lidar-labelling/actions/workflows/ci.yml)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/prime-slam/unsup-lidar-labelling)
+
 This repository provides adapted and docker-wrapped algorithms for buildings segmentation on aerial and satellite images.
 
 | Name | Paper | Original implementation |
