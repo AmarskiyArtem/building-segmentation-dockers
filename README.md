@@ -1,4 +1,4 @@
-# building-segmentation-dockers
+# Building segmentation dockers
 
 This repository provides adapted and docker-wrapped algorithms for buildings segmentation on aerial and satellite images.
 
