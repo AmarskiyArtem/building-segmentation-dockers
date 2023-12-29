@@ -4,7 +4,7 @@ The folder contains adapter and docker image for [A Semantic Segmentation Networ
 Extraction Using RGB Satellite Imagery](https://github.com/aatifjiwani/rgb-footprint-extract)
 
 ## Installation
-Clone the repo
+Clone the repo. Use git LFS to download model weights.
 
 ```
 https://github.com/AmarskiyArtem/building-segmentation-dockers.git
